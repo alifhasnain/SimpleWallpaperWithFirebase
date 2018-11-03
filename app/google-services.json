@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "472101516046",
+    "firebase_url": "https://recyclerviewdemo2-copy.firebaseio.com",
+    "project_id": "recyclerviewdemo2-copy",
+    "storage_bucket": "recyclerviewdemo2-copy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472101516046:android:78fd0a51a0962082",
+        "android_client_info": {
+          "package_name": "com.niloy.recyclerviewdemo2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472101516046-ojrq4ts0n3uopdcei6kuov0q665ld051.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.niloy.recyclerviewdemo2",
+            "certificate_hash": "1cdd83d56592e19cba4542f67175da8f2717bd4f"
+          }
+        },
+        {
+          "client_id": "472101516046-tmingar2e3527c96r2b0ir3s11529bci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHCVPusrhW4oYQSKX55i2FnMxbeb7g_v4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472101516046-tmingar2e3527c96r2b0ir3s11529bci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
