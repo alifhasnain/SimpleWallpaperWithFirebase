@@ -2,19 +2,11 @@ package com.niloy.recyclerviewdemo2;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.CircularProgressDrawable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,10 +19,13 @@ import com.androidnetworking.interfaces.DownloadListener;
 import com.androidnetworking.interfaces.DownloadProgressListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.daimajia.numberprogressbar.NumberProgressBar;
 
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import dmax.dialog.SpotsDialog;
 
 
@@ -39,6 +34,7 @@ public class LargeImageView extends AppCompatActivity {
     ImageView image;
     TextView text;
 
+    private final int REQUEST_ASK_WRITE_ACCESS = 44654;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +47,15 @@ public class LargeImageView extends AppCompatActivity {
         image = findViewById(R.id.image);
         text = findViewById(R.id.tag);
 
+        final Button downloadImage = findViewById(R.id.button);
+
+        downloadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadImage();
+            }
+        });
+
 
         if(getIntent().hasExtra("imageUrl") && getIntent().hasExtra("imageTag"))    {
 
@@ -60,7 +65,7 @@ public class LargeImageView extends AppCompatActivity {
 
     }
 
-    public void setImageAndTag(String x , String y) {
+    public void setImageAndTag(String imageUrl, String imageTag) {
 
         final CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
         circularProgressDrawable.setStrokeWidth(10f);
@@ -68,13 +73,23 @@ public class LargeImageView extends AppCompatActivity {
         circularProgressDrawable.setColorSchemeColors(Color.parseColor("#0288D1"));
         circularProgressDrawable.start();
 
-        Glide.with(this).asBitmap().load(getIntent().getExtras().getString("imageUrl"))
+        Glide.with(this).asBitmap().load(imageUrl)
                 .apply(new RequestOptions().placeholder(circularProgressDrawable)).into(image);
 
-        text.setText(getIntent().getExtras().getString("imageTag"));
+        text.setText(imageTag);
     }
 
-    public void downloadImage(View view)    {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_ASK_WRITE_ACCESS:
+                downloadImage();
+                break;
+        }
+    }
+
+    public void downloadImage() {
 
         String imageUrl = getIntent().getExtras().getString("imageUrl");
 
@@ -82,7 +97,7 @@ public class LargeImageView extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 23) {
             if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_ASK_WRITE_ACCESS);
         }
 
         Toast.makeText(this, "Downloading...", Toast.LENGTH_SHORT).show();
@@ -121,7 +136,7 @@ public class LargeImageView extends AppCompatActivity {
         String ALPHABETS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder str = new StringBuilder();
         Random random = new Random();
-        while (str.length()<=10)    {
+        while (str.length() < 10) {
             int index = (int)(random.nextFloat()*ALPHABETS.length());   //Used float for better random
             str.append(ALPHABETS.charAt(index));
         }

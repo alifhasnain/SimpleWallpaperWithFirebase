@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:wheel="http://schemas.android.com/tools"
     android:id="@+id/card_view"
@@ -15,7 +15,7 @@
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless">
 
@@ -32,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/image"
-            android:fontFamily="@font/montaga"
             android:background="#38000000"
+            android:fontFamily="@font/montaga"
             android:paddingRight="10dp"
             android:text="TextView"
             android:textAlignment="viewEnd"
@@ -46,12 +46,12 @@
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            app:matProg_barColor="@color/colorPrimary"
             app:matProg_circleRadius="70dp"
             app:matProg_rimColor="#d3d3d3"
-            app:matProg_barColor="@color/colorPrimary"
             wheel:matProg_barColor="#5588FF"
             wheel:matProg_progressIndeterminate="true" />
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
